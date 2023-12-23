@@ -1,3 +1,3 @@
 FROM amazoncorretto:11
-COPY target/*.jar appExploreWithMeService.jar
-CMD ["java", "-jar", "/appExploreWithMeService.jar"]
+COPY target/*.jar appExploreWithMeStatisticsService.jar
+CMD ["java", "-jar", "/appExploreWithMeStatisticsService.jar"]

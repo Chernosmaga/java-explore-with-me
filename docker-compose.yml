@@ -22,3 +22,9 @@ services:
       - POSTGRES_DB=statistics
       - POSTGRES_USER=test
       - POSTGRES_PASSWORD=test
+
+  ewm-service:
+    container_name: emw-service
+    build: ewm-main-service
+    ports:
+      - "8080:8080"
