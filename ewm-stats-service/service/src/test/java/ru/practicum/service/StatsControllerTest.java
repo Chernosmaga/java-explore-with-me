@@ -32,7 +32,7 @@ public class StatsControllerTest {
     private ObjectMapper mapper;
     @Autowired
     private MockMvc mvc;
-    private final EndpointHitDto endpoint = new EndpointHitDto(1, "ewm-main-service", "/events/1",
+    private final EndpointHitDto endpoint = new EndpointHitDto(1L, "ewm-main-service", "/events/1",
             "192.163.0.1", "2022-09-06 11:00:23");
 
     @Test
@@ -46,7 +46,7 @@ public class StatsControllerTest {
                         .contentType(APPLICATION_JSON)
                         .accept(APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(endpoint.getId())))
+                .andExpect(jsonPath("$.id", is(endpoint.getId()), Long.class))
                 .andExpect(jsonPath("$.app", is(endpoint.getApp())))
                 .andExpect(jsonPath("$.uri", is(endpoint.getUri())))
                 .andExpect(jsonPath("$.ip", is(endpoint.getIp())))

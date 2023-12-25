@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class StatsServiceImplTest {
     private final StatsService service;
-    private final EndpointHitDto endpoint = new EndpointHitDto(1, "ewm-main-service", "/events/1",
+    private final EndpointHitDto endpoint = new EndpointHitDto(1L, "ewm-main-service", "/events/1",
             "192.163.0.1", "2022-09-06 11:00:23");
 
     @Test
@@ -35,11 +35,11 @@ public class StatsServiceImplTest {
 
     @Test
     void receive_shouldReturnListOfUniqueIpsWithUri() {
-        service.send(new EndpointHitDto(2, "ewm-main-service", "/events/1",
+        service.send(new EndpointHitDto(2L, "ewm-main-service", "/events/1",
                 "192.163.0.1", "2022-09-06 11:00:23"));
-        service.send(new EndpointHitDto(3, "ewm-main-service", "/events/1",
+        service.send(new EndpointHitDto(3L, "ewm-main-service", "/events/1",
                 "192.163.0.1", "2022-09-06 11:10:00"));
-        service.send(new EndpointHitDto(4, "ewm-main-service", "/events/1",
+        service.send(new EndpointHitDto(4L, "ewm-main-service", "/events/1",
                 "192.163.1.2", "2022-09-06 11:20:00"));
         List<ViewStatsDto> views = service.receive(
                 LocalDateTime.of(2022, 9, 6, 10, 0, 23),
@@ -52,11 +52,11 @@ public class StatsServiceImplTest {
 
     @Test
     void receive_shouldReturnListOfIpsWithUris() {
-        service.send(new EndpointHitDto(2, "ewm-main-service", "/events/1",
+        service.send(new EndpointHitDto(2L, "ewm-main-service", "/events/1",
                 "192.163.0.1", "2022-09-06 11:00:23"));
-        service.send(new EndpointHitDto(3, "ewm-main-service", "/events/2",
+        service.send(new EndpointHitDto(3L, "ewm-main-service", "/events/2",
                 "192.163.1.2", "2022-09-06 11:10:00"));
-        service.send(new EndpointHitDto(4, "ewm-main-service", "/events/1",
+        service.send(new EndpointHitDto(4L, "ewm-main-service", "/events/1",
                 "192.163.0.1", "2022-09-06 11:20:00"));
         List<ViewStatsDto> views = service.receive(
                 LocalDateTime.of(2022, 9, 6, 10, 0, 23),

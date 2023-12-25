@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.practicum.EndpointHitDto;
 import ru.practicum.ViewStatsDto;
 import ru.practicum.mapper.EndpointHitMapper;
+import ru.practicum.mapper.ViewStatsMapper;
 import ru.practicum.model.EndpointHit;
 import ru.practicum.model.ViewStats;
 import ru.practicum.repository.StatsRepository;
@@ -17,12 +18,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class StatsServiceImpl implements StatsService {
     private final StatsRepository statsRepository;
-    private final EndpointHitMapper mapper;
+    private final EndpointHitMapper endpointHitMapper;
+    private final ViewStatsMapper viewStatsMapper;
 
     @Override
     public EndpointHitDto send(EndpointHitDto endpointHit) {
-        EndpointHit endpoint = statsRepository.save(mapper.toEndpointHit(endpointHit));
-        return mapper.toEndpointHitDto(endpoint);
+        EndpointHit endpoint = statsRepository.save(endpointHitMapper.toEndpointHit(endpointHit));
+        return endpointHitMapper.toEndpointHitDto(endpoint);
     }
 
     @Override
@@ -41,6 +43,6 @@ public class StatsServiceImpl implements StatsService {
                 views = statsRepository.getByStartAndEnd(start, end);
             }
         }
-        return views.stream().map(mapper::toViewStatsDto).collect(Collectors.toList());
+        return views.stream().map(viewStatsMapper::toViewStatsDto).collect(Collectors.toList());
     }
 }

@@ -2,9 +2,7 @@ package ru.practicum.mapper;
 
 import org.springframework.stereotype.Component;
 import ru.practicum.EndpointHitDto;
-import ru.practicum.ViewStatsDto;
 import ru.practicum.model.EndpointHit;
-import ru.practicum.model.ViewStats;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,12 +27,5 @@ public class EndpointHitMapper {
                 endpointHit.getUri(),
                 endpointHit.getIp(),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(endpointHit.getTimestamp()));
-    }
-
-    public ViewStatsDto toViewStatsDto(ViewStats viewStats) {
-        return new ViewStatsDto(
-                viewStats.getApp(),
-                viewStats.getUri(),
-                (int) viewStats.getHits());
     }
 }
