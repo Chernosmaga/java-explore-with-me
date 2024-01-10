@@ -23,9 +23,9 @@ services:
       - POSTGRES_USER=test
       - POSTGRES_PASSWORD=test
 
-  main-db:
+  ewm-db:
     image: postgres:14-alpine
-    container_name: main-db
+    container_name: db-main
     ports:
       - "6541:5432"
     environment:
@@ -33,8 +33,8 @@ services:
       - POSTGRES_USER=test
       - POSTGRES_PASSWORD=test
 
-  ewm-server:
-    container_name: emw-server
+  ewm-service:
+    container_name: emw-service
     build: ewm-main-service
     ports:
       - "8090:8090"
