@@ -37,7 +37,7 @@ services:
     container_name: emw-service
     build: ewm-main-service
     ports:
-      - "8090:8090"
+      - "8080:8080"
       - "5555:5005"
     depends_on:
       - ewm-db
