@@ -7,7 +7,7 @@ import ru.practicum.exception.AccessException;
 import ru.practicum.exception.DataViolationException;
 import ru.practicum.exception.NotFoundException;
 import ru.practicum.exception.ValidationException;
-import ru.practicum.exception.model.ErrorResponse;
+import ru.practicum.ErrorResponse;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

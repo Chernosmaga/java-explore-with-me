@@ -5,12 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.practicum.EndpointHitDto;
 import ru.practicum.ViewStatsDto;
+import ru.practicum.exception.DateTimeFormatException;
 import ru.practicum.mapper.EndpointHitMapper;
 import ru.practicum.mapper.ViewStatsMapper;
 import ru.practicum.model.EndpointHit;
 import ru.practicum.model.ViewStats;
 import ru.practicum.repository.StatsRepository;
 
+import javax.xml.bind.ValidationException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,6 +37,9 @@ public class StatsServiceImpl implements StatsService {
     @Override
     public List<ViewStatsDto> receive(LocalDateTime start, LocalDateTime end, String[] uris, Boolean isUnique) {
         log.debug("receive({}, {}, {}, {})", start, end, uris, isUnique);
+        if (start.isAfter(end)) {
+            throw new DateTimeFormatException("Неверно указаны данные даты и времени");
+        }
         List<ViewStats> views;
         if (isUnique) {
             if (uris != null) {
