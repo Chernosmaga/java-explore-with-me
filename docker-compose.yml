@@ -40,7 +40,7 @@ services:
       - "8090:8090"
       - "5555:5005"
     depends_on:
-      - main-db
+      - db-main
       - stats-server
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://main-db:5432/main_database
