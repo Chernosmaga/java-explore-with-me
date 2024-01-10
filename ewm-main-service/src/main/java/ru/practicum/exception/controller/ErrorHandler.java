@@ -3,11 +3,11 @@ package ru.practicum.exception.controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import ru.practicum.ErrorResponse;
 import ru.practicum.exception.AccessException;
 import ru.practicum.exception.DataViolationException;
 import ru.practicum.exception.NotFoundException;
 import ru.practicum.exception.ValidationException;
-import ru.practicum.ErrorResponse;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
