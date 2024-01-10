@@ -23,7 +23,8 @@ public class StatService extends BaseClient {
     private static final String API_PREFIX = "/";
 
     @Autowired
-    public StatService(@Value("${stats-server.url}") String serverUrl, RestTemplateBuilder builder) {
+    public StatService(@Value("${stats-service.url}") String serverUrl,
+                       RestTemplateBuilder builder) {
         super(
                 builder
                         .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl + API_PREFIX))

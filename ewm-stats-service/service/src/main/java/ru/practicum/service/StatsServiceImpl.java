@@ -1,6 +1,7 @@
 package ru.practicum.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.practicum.EndpointHitDto;
 import ru.practicum.ViewStatsDto;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class StatsServiceImpl implements StatsService {
@@ -23,12 +25,16 @@ public class StatsServiceImpl implements StatsService {
 
     @Override
     public EndpointHitDto send(EndpointHitDto endpointHit) {
-        EndpointHit endpoint = statsRepository.save(endpointHitMapper.toEndpointHit(endpointHit));
+        log.debug("send({})", endpointHit);
+        EndpointHit data = endpointHitMapper.toEndpointHit(endpointHit);
+        EndpointHit endpoint = statsRepository.save(data);
+        log.info("Сохранена информация по запросу в сервис: {}", endpoint);
         return endpointHitMapper.toEndpointHitDto(endpoint);
     }
 
     @Override
     public List<ViewStatsDto> receive(LocalDateTime start, LocalDateTime end, String[] uris, Boolean isUnique) {
+        log.debug("receive({}, {}, {}, {})", start, end, uris, isUnique);
         List<ViewStats> views;
         if (isUnique) {
             if (uris != null) {
@@ -43,6 +49,9 @@ public class StatsServiceImpl implements StatsService {
                 views = statsRepository.getByStartAndEnd(start, end);
             }
         }
-        return views.stream().map(viewStatsMapper::toViewStatsDto).collect(Collectors.toList());
+        List<ViewStatsDto> statistics = views.stream()
+                .map(viewStatsMapper::toViewStatsDto).collect(Collectors.toList());
+        log.info("Возращена статистика по просмотрам: {}", statistics);
+        return statistics;
     }
 }
