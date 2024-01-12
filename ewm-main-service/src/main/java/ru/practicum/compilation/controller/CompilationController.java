@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.compilation.dto.CompilationDto;
 import ru.practicum.compilation.dto.NewCompilationDto;
-import ru.practicum.compilation.dto.UpdateCompilationRequest;
+import ru.practicum.compilation.dto.UpdateCompilationDto;
 import ru.practicum.compilation.service.CompilationService;
 
 import javax.validation.Valid;
@@ -25,7 +25,7 @@ public class CompilationController {
     }
 
     @PatchMapping("/admin/compilations/{compId}")
-    public CompilationDto update(@PathVariable Long compId, @Valid @RequestBody UpdateCompilationRequest compilation) {
+    public CompilationDto update(@PathVariable Long compId, @Valid @RequestBody UpdateCompilationDto compilation) {
         return service.update(compId, compilation);
     }
 

@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateCompilationRequest {
+public class UpdateCompilationDto {
     private List<Long> events;
     private Boolean pinned;
     @Length(min = 1, max = 50)

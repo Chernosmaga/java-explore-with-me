@@ -6,7 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.practicum.compilation.dto.CompilationDto;
 import ru.practicum.compilation.dto.NewCompilationDto;
-import ru.practicum.compilation.dto.UpdateCompilationRequest;
+import ru.practicum.compilation.dto.UpdateCompilationDto;
 import ru.practicum.compilation.mapper.CompilationMapper;
 import ru.practicum.compilation.model.Compilation;
 import ru.practicum.compilation.repository.CompilationRepository;
@@ -39,7 +39,7 @@ public class CompilationServiceImpl implements CompilationService {
     }
 
     @Override
-    public CompilationDto update(Long compId, UpdateCompilationRequest compilation) {
+    public CompilationDto update(Long compId, UpdateCompilationDto compilation) {
         log.debug("update({}, {})", compId, compilation);
         Compilation foundCompilation = findById(compId);
         titleValidation(compilation.getTitle());
