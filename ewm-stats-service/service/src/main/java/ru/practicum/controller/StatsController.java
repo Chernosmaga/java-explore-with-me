@@ -10,6 +10,8 @@ import ru.practicum.service.StatsService;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.CREATED;
+
 @RestController
 @RequiredArgsConstructor
 public class StatsController {
@@ -17,6 +19,7 @@ public class StatsController {
     private static final String PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     @PostMapping("/hit")
+    @ResponseStatus(CREATED)
     public EndpointHitDto send(@RequestBody EndpointHitDto endpointHit) {
         return service.send(endpointHit);
     }
