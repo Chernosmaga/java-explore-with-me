@@ -1,0 +1,1712 @@
+{
+	"info": {
+		"_postman_id": "2d5e0f90-c6ca-47b2-a2d5-20af0d4b68bb",
+		"name": "feature",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "28184234"
+	},
+	"item": [
+		{
+			"name": "subscriptions",
+			"item": [
+				{
+					"name": "Пушкин подписывается на Цветаеву",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Статус ответа должен быть 200 или 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать данные в формате JSON\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать поле 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать поле с краткой информацией о пользователе\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать поле с краткой информацией о подписчике\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('follower');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/subscriptions?userId=3795&followerId=3792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"subscriptions"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "3795"
+								},
+								{
+									"key": "followerId",
+									"value": "3792"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Пушкин подписывается на Ахматову",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Статус ответа должен быть 200 или 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать данные в формате JSON\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать поле 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать поле с краткой информацией о пользователе\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать поле с краткой информацией о подписчике\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('follower');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/subscriptions?userId=3794&followerId=3792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"subscriptions"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "3794"
+								},
+								{
+									"key": "followerId",
+									"value": "3792"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Пушкин запрашивает список подписок без учёта пагинации",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Статус ответа должен быть 200\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать массив данных\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.length, 'Длинна массива должна равняться 2').to.eql(2);\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о пользователе, в том числе поле 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('id');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о пользователе, в том числе поле 'name'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('name');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о пользователе, в том числе поле 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('id');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о пользователе, в том числе поле 'name'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('name');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/subscriptions?userId=3792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"subscriptions"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "3792"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Пушкин запрашивает список подписок с учётом пагинации",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Статус ответа должен быть 200\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать массив данных\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.length, 'Длинна массива должна равняться 2').to.eql(2);\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о пользователе, в том числе поле 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('id');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о пользователе, в том числе поле 'name'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('name');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о пользователе, в том числе поле 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('id');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о пользователе, в том числе поле 'name'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('name');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/subscriptions?userId=3792&from=0&size=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"subscriptions"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "3792"
+								},
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Пушкин отписывается от Ахматовой",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 204 и данные в формате JSON\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/subscriptions?userId=3794&followerId=3792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"subscriptions"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "3794"
+								},
+								{
+									"key": "followerId",
+									"value": "3792"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Цветаева запрашивает список подписчиков без учёта пагинации",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Статус ответа должен быть 200\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать массив данных\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.length, 'Длинна массива должна равняться 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о пользователе, в том числе поле 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('id');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о пользователе, в том числе поле 'name'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('name');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/subscriptions?userId=3795",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"subscriptions"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "3795"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Толстой подписывается на Пушкина",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Статус ответа должен быть 200 или 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать данные в формате JSON\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать поле 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать поле с краткой информацией о пользователе\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать поле с краткой информацией о подписчике\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('follower');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/subscriptions?userId=3792&followerId=3793",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"subscriptions"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "3792"
+								},
+								{
+									"key": "followerId",
+									"value": "3793"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Толстой подписывается на Цветаеву",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Статус ответа должен быть 200 или 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать данные в формате JSON\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать поле 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать поле с краткой информацией о пользователе\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать поле с краткой информацией о подписчике\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('follower');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/subscriptions?userId=3795&followerId=3793",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"subscriptions"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "3795"
+								},
+								{
+									"key": "followerId",
+									"value": "3793"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Цветаева подписывается на Пушкина",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Статус ответа должен быть 200 или 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать данные в формате JSON\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать поле 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать поле с краткой информацией о пользователе\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать поле с краткой информацией о подписчике\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('follower');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/subscriptions?userId=3792&followerId=3795",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"subscriptions"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "3792"
+								},
+								{
+									"key": "followerId",
+									"value": "3795"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ахматова подписывается на Пушкина",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Статус ответа должен быть 200 или 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать данные в формате JSON\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать поле 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать поле с краткой информацией о пользователе\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать поле с краткой информацией о подписчике\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('follower');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/subscriptions?userId=3792&followerId=3794",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"subscriptions"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "3792"
+								},
+								{
+									"key": "followerId",
+									"value": "3794"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Пушкин запрашивает список подписчиков с учётом пагинации",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Статус ответа должен быть 200\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать массив данных\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.length, 'Длинна массива должна равняться 2').to.eql(2);\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о пользователе, в том числе поле 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('id');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о пользователе, в том числе поле 'name'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('name');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о пользователе, в том числе поле 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('id');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о пользователе, в том числе поле 'name'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('name');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/subscriptions/3792?from=0&size=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"subscriptions",
+								"3792"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "errors",
+			"item": [
+				{
+					"name": "Ошибка 409 при повторной подписке на пользователя",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате JSON\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/subscriptions?userId=3795&followerId=3792",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"subscriptions"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "3795"
+								},
+								{
+									"key": "followerId",
+									"value": "3792"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ошибка 404 при отсутствии данных о пользователе",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 404 и данные в формате JSON\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/subscriptions?userId=3782&followerId=3783",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"subscriptions"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "3782"
+								},
+								{
+									"key": "followerId",
+									"value": "3783"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ошибка 409 при попытке отписаться от пользователя будучи неподписанным на него",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате JSON\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/subscriptions?userId=3792&followerId=3793",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"subscriptions"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "3792"
+								},
+								{
+									"key": "followerId",
+									"value": "3793"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "feed",
+			"item": [
+				{
+					"name": "Добавление категории",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате JSON\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Выступления\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/admin/categories"
+					},
+					"response": []
+				},
+				{
+					"name": "Пушкин добавляет событие",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате JSON\", function () {\r",
+									"    pm.response.to.have.status(201);  \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const source = JSON.parse(pm.request.body.raw);\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Событие должно содержать поля: id, title, annotation, category, paid, eventDate, initiator, description, participantLimit, state, createdOn, location, requestModeration\", function () {\r",
+									"pm.expect(target).to.have.property('id');\r",
+									"pm.expect(target).to.have.property('title');\r",
+									"pm.expect(target).to.have.property('annotation');\r",
+									"pm.expect(target).to.have.property('category');\r",
+									"pm.expect(target).to.have.property('paid');\r",
+									"pm.expect(target).to.have.property('eventDate');\r",
+									"pm.expect(target).to.have.property('initiator');\r",
+									"pm.expect(target).to.have.property('description');\r",
+									"pm.expect(target).to.have.property('participantLimit');\r",
+									"pm.expect(target).to.have.property('state');\r",
+									"pm.expect(target).to.have.property('createdOn');\r",
+									"pm.expect(target).to.have.property('location');\r",
+									"pm.expect(target).to.have.property('requestModeration');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"annotation\": \"Выход в свет: поэма Медный Всадник\",\r\n    \"category\": 692,\r\n    \"description\": \"Я хочу представить Вам свою петербургскую повесть, об истории безумия и гибели мелкого чиновника Евгения, потерявшего возлюбленную во время наводнения\",\r\n    \"eventDate\": \"2025-01-01 15:00:00\",\r\n    \"location\": {\r\n        \"lat\": 55.7522,\r\n        \"lon\": 37.6156\r\n    },\r\n    \"paid\": false,\r\n    \"participantLimit\": 2,\r\n    \"requestModeration\": false,\r\n    \"title\": \"Петербургская повесть\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/users/3792/events"
+					},
+					"response": []
+				},
+				{
+					"name": "Цветаева добавляет событие",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате JSON\", function () {\r",
+									"    pm.response.to.have.status(201);  \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const source = JSON.parse(pm.request.body.raw);\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Событие должно содержать поля: id, title, annotation, category, paid, eventDate, initiator, description, participantLimit, state, createdOn, location, requestModeration\", function () {\r",
+									"pm.expect(target).to.have.property('id');\r",
+									"pm.expect(target).to.have.property('title');\r",
+									"pm.expect(target).to.have.property('annotation');\r",
+									"pm.expect(target).to.have.property('category');\r",
+									"pm.expect(target).to.have.property('paid');\r",
+									"pm.expect(target).to.have.property('eventDate');\r",
+									"pm.expect(target).to.have.property('initiator');\r",
+									"pm.expect(target).to.have.property('description');\r",
+									"pm.expect(target).to.have.property('participantLimit');\r",
+									"pm.expect(target).to.have.property('state');\r",
+									"pm.expect(target).to.have.property('createdOn');\r",
+									"pm.expect(target).to.have.property('location');\r",
+									"pm.expect(target).to.have.property('requestModeration');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"annotation\": \"Моё первое издание: Вечерний альбом\",\r\n    \"category\": 692,\r\n    \"description\": \"Москва, я хочу представить тебе своё первое творение и надеюсь, что оно отзовётся в сердцах миллиона москвичей\",\r\n    \"eventDate\": \"2024-12-12 18:00:00\",\r\n    \"location\": {\r\n        \"lat\": 55.7523,\r\n        \"lon\": 37.6156\r\n    },\r\n    \"paid\": false,\r\n    \"participantLimit\": 0,\r\n    \"requestModeration\": false,\r\n    \"title\": \"Вечерний альбом\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/users/3795/events"
+					},
+					"response": []
+				},
+				{
+					"name": "Публикация события Пушкина администратором",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате JSON\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stateAction\": \"PUBLISH_EVENT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/admin/events/3209"
+					},
+					"response": []
+				},
+				{
+					"name": "Публикация события Цветаевой администратором",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате JSON\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stateAction\": \"PUBLISH_EVENT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/admin/events/3210"
+					},
+					"response": []
+				},
+				{
+					"name": "Просмотр события Пушкина",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате JSON\", function () {\r",
+									"    pm.response.to.have.status(200);  \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const source = JSON.parse(pm.request.body.raw);\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Событие должно содержать поля: id, title, annotation, category, paid, eventDate, initiator, description, participantLimit, state, createdOn, location, requestModeration\", function () {\r",
+									"pm.expect(target).to.have.property('id');\r",
+									"pm.expect(target).to.have.property('title');\r",
+									"pm.expect(target).to.have.property('annotation');\r",
+									"pm.expect(target).to.have.property('category');\r",
+									"pm.expect(target).to.have.property('paid');\r",
+									"pm.expect(target).to.have.property('eventDate');\r",
+									"pm.expect(target).to.have.property('initiator');\r",
+									"pm.expect(target).to.have.property('description');\r",
+									"pm.expect(target).to.have.property('participantLimit');\r",
+									"pm.expect(target).to.have.property('state');\r",
+									"pm.expect(target).to.have.property('createdOn');\r",
+									"pm.expect(target).to.have.property('location');\r",
+									"pm.expect(target).to.have.property('requestModeration');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8080/events/3209"
+					},
+					"response": []
+				},
+				{
+					"name": "Заявка на участие в событии Пушкина от Ахматовой",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате JSON\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/3794/requests?eventId=3209",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"3794",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "eventId",
+									"value": "3209"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Заявка на участие в событии Пушкина от Толстого",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате JSON\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/3793/requests?eventId=3209",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"3793",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "eventId",
+									"value": "3209"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение событий Пушкина Цветаевой",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Статус ответа должен быть 200\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать массив данных\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.length, 'Длинна массива должна равняться 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('id');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'annotation'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('annotation');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе данные о категории\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('category');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'confirmedRequests'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('confirmedRequests');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'eventDate'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('eventDate');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе об инициаторе\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('initiator');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'paid'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('paid');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'title'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('title');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'views'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('views');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/3795/events/feed?sort=EVENT_DATE&available=false&from=0&size=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"3795",
+								"events",
+								"feed"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "EVENT_DATE"
+								},
+								{
+									"key": "available",
+									"value": "false"
+								},
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение событий Пушкина и Цветаевой Толстым",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Статус ответа должен быть 200\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать массив данных\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.length, 'Длинна массива должна равняться 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('id');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'annotation'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('annotation');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе данные о категории\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('category');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'confirmedRequests'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('confirmedRequests');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'eventDate'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('eventDate');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе об инициаторе\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('initiator');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'paid'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('paid');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'title'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('title');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'views'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('views');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/3795/events/feed?sort=EVENT_DATE&available=false&from=0&size=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"3795",
+								"events",
+								"feed"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "EVENT_DATE"
+								},
+								{
+									"key": "available",
+									"value": "false"
+								},
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение событий Пушкина Цветаевой без параметров",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Статус ответа должен быть 200\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать массив данных\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.length, 'Длинна массива должна равняться 0').to.eql(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8080/users/3795/events/feed"
+					},
+					"response": []
+				},
+				{
+					"name": "Получение событий Пушкина Цветаевой без пагинации",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Статус ответа должен быть 200\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"});\r",
+									"pm.test(\"Ответ должен содержать массив данных\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.length, 'Длинна массива должна равняться 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('id');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'annotation'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('annotation');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе данные о категории\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('category');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'confirmedRequests'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('confirmedRequests');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'eventDate'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('eventDate');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе об инициаторе\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('initiator');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'paid'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('paid');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'title'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('title');\r",
+									"});\r",
+									"pm.test(\"Данные в массиве должны содержать краткую информацию о событии, в том числе поле 'views'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('views');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/3795/events/feed?sort=EVENT_DATE&available=false",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"3795",
+								"events",
+								"feed"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "EVENT_DATE"
+								},
+								{
+									"key": "available",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Пушкин подтверждает участие Ахматовой и Толстого в событии",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате JSON\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requestIds\": [248, 249],\r\n    \"status\": \"CONFIRMED\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/users/3792/events/3209/requests"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
