@@ -176,3 +176,5 @@ Java 11, Spring Boot, Lombok, PostgreSQL, Spring Data JPA, Hibernate, H2 и Quer
 самостоятельный путь в профессии Java-разработчика!
 
 </details>
+
+[ссылка на PR проекта](https://github.com/Chernosmaga/java-explore-with-me/pull/4)
