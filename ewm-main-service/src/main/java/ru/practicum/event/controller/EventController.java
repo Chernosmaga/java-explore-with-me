@@ -99,4 +99,13 @@ public class EventController {
                                           @Valid @RequestBody UpdateEventAdminRequest event) {
         return eventService.updateByIdByAdmin(eventId, event);
     }
+
+    @GetMapping("/users/{userId}/events/feed")
+    public List<EventShortDto> getFeed(@PathVariable Long userId,
+                                       @RequestParam(required = false, defaultValue = "VIEWS") Sort sort,
+                                       @RequestParam(required = false, defaultValue = "true") Boolean available,
+                                       @RequestParam(required = false, defaultValue = "0") int from,
+                                       @RequestParam(required = false, defaultValue = "10") int size) {
+        return eventService.getFeed(userId, sort, available, from, size);
+    }
 }

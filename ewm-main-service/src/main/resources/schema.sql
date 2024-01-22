@@ -59,3 +59,11 @@ create table if not exists compilations_events
     events_id bigint not null references events (id) on delete cascade ,
     compilation_id bigint not null references compilations (id) on delete cascade
 );
+
+create table if not exists subscriptions
+(
+    id bigint generated always as identity primary key,
+    user_id bigint not null references users (id) on delete cascade,
+    follower_id bigint not null references users (id) on delete cascade,
+    date timestamp without time zone not null
+);

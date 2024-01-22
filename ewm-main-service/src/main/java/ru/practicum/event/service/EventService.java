@@ -31,4 +31,6 @@ public interface EventService {
 
     List<EventFullDto> searchEventsByAdmin(Long[] users, String[] states, Integer[] categories,
                                            LocalDateTime rangeStart, LocalDateTime rangeEnd, int from, int size);
+
+    List<EventShortDto> getFeed(Long userId, Sort sort, Boolean isAvailableToParticipate, int from, int size);
 }

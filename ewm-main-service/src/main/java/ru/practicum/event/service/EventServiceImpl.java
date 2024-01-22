@@ -27,6 +27,8 @@ import ru.practicum.request.mapper.RequestMapper;
 import ru.practicum.request.model.ParticipationRequest;
 import ru.practicum.request.repository.RequestRepository;
 import ru.practicum.statistics.stats.StatService;
+import ru.practicum.subscription.model.Subscription;
+import ru.practicum.subscription.repository.SubscriptionRepository;
 import ru.practicum.user.model.User;
 import ru.practicum.user.repository.UserRepository;
 
@@ -53,6 +55,7 @@ public class EventServiceImpl implements EventService {
     private final RequestMapper requestMapper;
     private final CategoryRepository categoryRepository;
     private final StatService statsService;
+    private final SubscriptionRepository subscriptionRepository;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
@@ -215,6 +218,42 @@ public class EventServiceImpl implements EventService {
                         .count())).collect(Collectors.toList());
         log.info("Возвращён список событий по запросу администратора: {}", events);
         return events;
+    }
+
+    @Override
+    public List<EventShortDto> getFeed(Long userId, Sort sort, Boolean isAvailableToParticipate, int from, int size) {
+        log.debug("getFeed({}, {}, {}, {}, {})", userId, sort, isAvailableToParticipate, from, size);
+        PageRequest page = PageRequest.of(from, size);
+        User user = userSearch(userId);
+        List<Event> events;
+        List<Long> subscriptions = subscriptionRepository
+                .findAllByFollower(user, PageRequest.of(0, 10)).stream()
+                .map(Subscription::getUser).map(User::getId).collect(Collectors.toList());
+        if (isAvailableToParticipate) {
+            events = eventRepository.findAvailableToParticipateEvents(subscriptions, page)
+                    .stream().collect(Collectors.toList());
+        } else {
+            events = eventRepository.findEventByInitiatorIdIsIn(subscriptions, page)
+                    .stream().collect(Collectors.toList());
+        }
+        List<EventShortDto> eventsShortDto = new ArrayList<>();
+        for (Event event: events) {
+            eventsShortDto.add(eventMapper.toEventShortDto(receiveData(event)));
+        }
+        eventsShortDto = eventsShortDto.stream().peek(event ->
+                event.setConfirmedRequests((int) requestRepository.findByEventId(event.getId())
+                        .stream().filter(request -> request.getStatus().equals(CONFIRMED))
+                        .count())).collect(Collectors.toList());
+        List<EventShortDto> eventsToReturn;
+        if (VIEWS.equals(sort)) {
+            eventsToReturn = eventsShortDto.stream().sorted(Comparator.comparing(EventShortDto::getViews))
+                    .collect(Collectors.toList());
+        } else {
+            eventsToReturn = eventsShortDto.stream().sorted(Comparator.comparing(EventShortDto::getEventDate))
+                    .collect(Collectors.toList());
+        }
+        log.info("Возвращён список событий подписок пользователя: {}", eventsToReturn);
+        return eventsToReturn;
     }
 
     @Override
