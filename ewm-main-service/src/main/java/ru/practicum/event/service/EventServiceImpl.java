@@ -245,7 +245,7 @@ public class EventServiceImpl implements EventService {
                         .stream().filter(request -> request.getStatus().equals(CONFIRMED))
                         .count())).collect(Collectors.toList());
         List<EventShortDto> eventsToReturn;
-        if (sort.equals(VIEWS)) {
+        if (VIEWS.equals(sort)) {
             eventsToReturn = eventsShortDto.stream().sorted(Comparator.comparing(EventShortDto::getViews))
                     .collect(Collectors.toList());
         } else {

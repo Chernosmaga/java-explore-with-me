@@ -33,7 +33,6 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public SubscriptionDto follow(Long userId, Long followerId) {
-        log.debug("follow({}, {})", userId, followerId);
         User user = userSearch(userId);
         User follower = userSearch(followerId);
         if (subscriptionRepository.existsByUserAndFollower(user, follower)) {
@@ -50,7 +49,6 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public void unfollow(Long userId, Long followerId) {
-        log.debug("unfollow({}, {})", userId, followerId);
         User user = userSearch(userId);
         User follower = userSearch(followerId);
         if (!subscriptionRepository.existsByUserAndFollower(user, follower)) {
